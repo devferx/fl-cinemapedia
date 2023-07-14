@@ -12,8 +12,8 @@ class MovieScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Movie Screen'),
       ),
-      body: const Center(
-        child: Text('Movie Screen'),
+      body: Center(
+        child: Text('MovieID: $movieId'),
       ),
     );
   }
