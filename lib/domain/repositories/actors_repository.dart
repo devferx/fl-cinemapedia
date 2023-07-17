@@ -1,5 +1,5 @@
 import 'package:cinemapedia/domain/entities/actor.dart';
 
 abstract class ActorsRepository {
-  Future<List<Actor>> getActorsByMovieId(int movieId);
+  Future<List<Actor>> getActorsByMovieId(String movieId);
 }
