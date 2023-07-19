@@ -1,3 +1,4 @@
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
@@ -21,6 +22,9 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
     ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
+    ref
+        .read(recomendedMoviesProvider.notifier)
+        .loadRecomendedMovies(widget.movieId);
   }
 
   @override
@@ -52,15 +56,18 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   }
 }
 
-class _MovieDetails extends StatelessWidget {
+class _MovieDetails extends ConsumerWidget {
   final Movie movie;
 
   const _MovieDetails({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
     final textStyles = Theme.of(context).textTheme;
+
+    final recomendedMovies =
+        ref.watch(recomendedMoviesProvider)[movie.id.toString()];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,16 +98,25 @@ class _MovieDetails extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Wrap(
             children: [
-              ...movie.genreIds.map((gender) => Container(
+              ...movie.genreIds.map(
+                (gender) => Container(
                   margin: const EdgeInsets.only(right: 10),
                   child: Chip(
-                      label: Text(gender),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)))))
+                    label: Text(gender),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
+        MovieHorizontalListview(
+          title: "Recomendaciones",
+          movies: recomendedMovies ?? [],
+        ),
         const SizedBox(height: 50),
       ],
     );
