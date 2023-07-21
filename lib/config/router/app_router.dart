@@ -1,58 +1,32 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:cinemapedia/presentation/views/views.dart';
 import 'package:cinemapedia/presentation/screens/screens.dart';
 
 final appRouter = GoRouter(
-  initialLocation: "/",
+  initialLocation: "/home/0",
   routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return HomeScreen(currentChild: navigationShell);
+    GoRoute(
+      path: "/home/:page",
+      name: HomeScreen.name,
+      builder: (context, state) {
+        final pageIndex = int.parse(state.pathParameters['page'] ?? '0');
+        return HomeScreen(pageIndex: pageIndex);
       },
-      branches: [
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: "/",
-              builder: (context, state) {
-                return const HomeView();
-              },
-              routes: [
-                GoRoute(
-                  path: "movie/:id",
-                  name: MovieScreen.name,
-                  builder: (context, state) {
-                    final movieId = state.pathParameters['id'] ?? 'no-id';
+      routes: [
+        GoRoute(
+          path: "movie/:id",
+          name: MovieScreen.name,
+          builder: (context, state) {
+            final movieId = state.pathParameters['id'] ?? 'no-id';
 
-                    return MovieScreen(movieId: movieId);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: "/",
-              builder: (context, state) {
-                return const HomeView();
-              },
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: "/favorites",
-              builder: (context, state) {
-                return const FavoritesView();
-              },
-            ),
-          ],
+            return MovieScreen(movieId: movieId);
+          },
         ),
       ],
+    ),
+    GoRoute(
+      path: "/",
+      redirect: (_, __) => '/home/0',
     ),
   ],
 );
