@@ -113,10 +113,11 @@ class _MovieDetails extends ConsumerWidget {
           ),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
-        MovieHorizontalListview(
-          title: "Recomendaciones",
-          movies: recomendedMovies ?? [],
-        ),
+        if (recomendedMovies == null && !recomendedMovies!.isNotEmpty)
+          MovieHorizontalListview(
+            title: "Recomendaciones",
+            movies: recomendedMovies,
+          ),
         const SizedBox(height: 50),
       ],
     );
