@@ -113,7 +113,7 @@ class _MovieDetails extends ConsumerWidget {
           ),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
-        if (recomendedMovies == null && !recomendedMovies!.isNotEmpty)
+        if (recomendedMovies != null && recomendedMovies.isNotEmpty)
           MovieHorizontalListview(
             title: "Recomendaciones",
             movies: recomendedMovies,
