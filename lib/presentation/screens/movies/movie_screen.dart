@@ -147,7 +147,7 @@ class _ActorsByMovie extends ConsumerWidget {
           final actor = actors[index];
 
           return Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
             width: 135,
             child: FadeInRight(
               child: Column(
