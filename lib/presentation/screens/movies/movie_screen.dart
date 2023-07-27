@@ -64,7 +64,6 @@ class _MovieDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
-    final textStyles = Theme.of(context).textTheme;
 
     final recomendedMovies =
         ref.watch(recomendedMoviesProvider)[movie.id.toString()];
@@ -72,46 +71,8 @@ class _MovieDetails extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(movie.posterPath, width: size.width * 0.3),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(movie.title, style: textStyles.titleLarge),
-                    Text(movie.overview),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Wrap(
-            children: [
-              ...movie.genreIds.map(
-                (gender) => Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: Chip(
-                    label: Text(gender),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+        _TitleAndOverview(movie: movie, size: size),
+        _Genres(genres: movie.genreIds),
         ActorsByMovie(movieId: movie.id.toString()),
         if (recomendedMovies != null && recomendedMovies.isNotEmpty)
           MovieHorizontalListview(
@@ -120,6 +81,77 @@ class _MovieDetails extends ConsumerWidget {
           ),
         const SizedBox(height: 50),
       ],
+    );
+  }
+}
+
+class _TitleAndOverview extends StatelessWidget {
+  const _TitleAndOverview({
+    required this.movie,
+    required this.size,
+  });
+
+  final Movie movie;
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyles = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              movie.posterPath,
+              width: size.width * 0.3,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(movie.title, style: textStyles.titleLarge),
+                Text(movie.overview),
+                const SizedBox(height: 8),
+                MovieRating(voteAverage: movie.voteAverage)
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _Genres extends StatelessWidget {
+  final List<String> genres;
+
+  const _Genres({required this.genres});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Wrap(
+        children: [
+          ...genres.map(
+            (gender) => Container(
+              margin: const EdgeInsets.only(right: 10),
+              child: Chip(
+                label: Text(gender),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
