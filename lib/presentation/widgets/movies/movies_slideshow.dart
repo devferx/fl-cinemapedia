@@ -55,23 +55,18 @@ class _Slide extends StatelessWidget {
       ],
     );
 
-    return GestureDetector(
-      onTap: () {
-        context.push('/home/0/movie/${movie.id}');
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 30),
-        child: DecoratedBox(
-          decoration: decoration,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: GestureDetector(
-              onTap: () => context.push('/home/0/movie/${movie.id}'),
-              child: FadeInImage(
-                fit: BoxFit.cover,
-                placeholder: const AssetImage('assets/bottle-loader.gif'),
-                image: NetworkImage(movie.backdropPath),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30),
+      child: DecoratedBox(
+        decoration: decoration,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: GestureDetector(
+            onTap: () => context.push('/home/0/movie/${movie.id}'),
+            child: FadeInImage(
+              fit: BoxFit.cover,
+              placeholder: const AssetImage('assets/bottle-loader.gif'),
+              image: NetworkImage(movie.backdropPath),
             ),
           ),
         ),
