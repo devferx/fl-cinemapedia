@@ -203,7 +203,16 @@ class _CustomSliverAppBar extends ConsumerWidget {
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        titlePadding: const EdgeInsets.only(bottom: 0),
+        title: _CustomGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.7, 1.0],
+          colors: [
+            Colors.transparent,
+            scaffoldBackgroundColor,
+          ],
+        ),
         background: Stack(
           children: [
             SizedBox.expand(
@@ -236,17 +245,6 @@ class _CustomSliverAppBar extends ConsumerWidget {
               colors: [
                 Colors.black87,
                 Colors.transparent,
-              ],
-            ),
-
-            // Bottom Gradient
-            _CustomGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: const [0.7, 1.0],
-              colors: [
-                Colors.transparent,
-                scaffoldBackgroundColor,
               ],
             ),
           ],
