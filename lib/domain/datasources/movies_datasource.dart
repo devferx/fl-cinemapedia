@@ -8,4 +8,5 @@ abstract class MoviesDatasource {
   Future<Movie> getMovieById(String id);
   Future<List<Movie>> searchMovies(String query);
   Future<List<Movie>> getSimilarMovies({required String id, int page = 1});
+  Future<List<String>> getYoutubeVideosById(int movieId);
 }
