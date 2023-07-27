@@ -1,3 +1,4 @@
+import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:flutter/material.dart';
 
 class MovieRating extends StatelessWidget {
@@ -22,7 +23,7 @@ class MovieRating extends StatelessWidget {
           ),
           const SizedBox(width: 3),
           Text(
-            '$voteAverage',
+            HumanFormats.number(voteAverage, 1),
             style: textStyles.bodyMedium?.copyWith(
               color: Colors.yellow.shade800,
             ),
