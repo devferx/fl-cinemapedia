@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:cinemapedia/config/helpers/human_formats.dart';
-
 class MovieRating extends StatelessWidget {
   final double voteAverage;
 
