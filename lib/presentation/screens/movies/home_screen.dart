@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: viewRoutes,
       ),
