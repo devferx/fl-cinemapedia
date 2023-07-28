@@ -1,3 +1,4 @@
+import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -55,7 +56,7 @@ class HomeViewState extends ConsumerState<HomeView>
                   MovieHorizontalListview(
                     movies: nowPlayingMovies,
                     title: "En cines",
-                    subtitle: "Lunes 20",
+                    subtitle: HumanFormats.getDay(DateTime.now()),
                     loadNextPage: () {
                       ref
                           .read(nowPlayingMoviesProvider.notifier)
