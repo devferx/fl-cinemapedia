@@ -41,29 +41,30 @@ class _VideosList extends StatelessWidget {
       return const SizedBox();
     }
 
-    return Container(
-      margin: const EdgeInsetsDirectional.only(bottom: 50),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              'Videos',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            'Videos',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
-          ...videos
-              .map(
-                (video) => _YoutubeVideoPlayer(
-                  youtubeId: video.youtubeKey,
-                  name: video.name,
-                ),
-              )
-              .toList(),
-        ],
-      ),
+        ),
+        const SizedBox(height: 8),
+        _YoutubeVideoPlayer(
+          youtubeId: videos.first.youtubeKey,
+          name: videos.first.name,
+        ),
+        // ...videos
+        //     .map(
+        //       (video) => _YoutubeVideoPlayer(
+        //         youtubeId: video.youtubeKey,
+        //         name: video.name,
+        //       ),
+        //     )
+        //     .toList(),
+      ],
     );
   }
 }
@@ -111,20 +112,13 @@ class _YoutubeVideoPlayerState extends State<_YoutubeVideoPlayer> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: YoutubePlayerBuilder(
-        player: YoutubePlayer(controller: _controller),
-        builder: (context, player) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.name),
-              const SizedBox(height: 8),
-              player,
-              const SizedBox(height: 20),
-            ],
-          );
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.name),
+          const SizedBox(height: 8),
+          YoutubePlayer(controller: _controller),
+        ],
       ),
     );
   }

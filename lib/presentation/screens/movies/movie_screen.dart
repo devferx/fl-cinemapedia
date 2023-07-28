@@ -75,12 +75,12 @@ class _MovieDetails extends ConsumerWidget {
         _TitleAndOverview(movie: movie, size: size),
         _Genres(genres: movie.genreIds),
         ActorsByMovie(movieId: movie.id.toString()),
+        VideosFromMovie(movieId: movie.id),
         if (recomendedMovies != null && recomendedMovies.isNotEmpty)
           MovieHorizontalListview(
             title: "Recomendaciones",
             movies: recomendedMovies,
           ),
-        VideosFromMovie(movieId: movie.id),
         const SizedBox(height: 50),
       ],
     );
