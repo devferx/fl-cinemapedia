@@ -1,7 +1,7 @@
-import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -16,9 +16,9 @@ class HomeViewState extends ConsumerState<HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-    ref.read(popularMoviesProvider.notifier).loadNextPage();
     ref.read(upcomingMoviesProvider.notifier).loadNextPage();
     ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    // ref.read(popularMoviesProvider.notifier).loadNextPage();
   }
 
   @override
@@ -28,9 +28,9 @@ class HomeViewState extends ConsumerState<HomeView> {
 
     final slideshowMovies = ref.watch(moviesSlideshowProvider);
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    // final popularMovies = ref.watch(popularMoviesProvider);
 
     return CustomScrollView(
       slivers: [
@@ -65,13 +65,13 @@ class HomeViewState extends ConsumerState<HomeView> {
                       ref.read(upcomingMoviesProvider.notifier).loadNextPage();
                     },
                   ),
-                  MovieHorizontalListview(
-                    movies: popularMovies,
-                    title: "Populares",
-                    loadNextPage: () {
-                      ref.read(popularMoviesProvider.notifier).loadNextPage();
-                    },
-                  ),
+                  // MovieHorizontalListview(
+                  //   movies: popularMovies,
+                  //   title: "Populares",
+                  //   loadNextPage: () {
+                  //     ref.read(popularMoviesProvider.notifier).loadNextPage();
+                  //   },
+                  // ),
                   MovieHorizontalListview(
                     movies: topRatedMovies,
                     title: "Mejores calificadas",
